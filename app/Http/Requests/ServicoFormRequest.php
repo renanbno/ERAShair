@@ -25,10 +25,10 @@ class ServicoFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nome' => 'required|max:80|min:5|unique:servico,nomes',
-            'descriçao' => 'required|max:200|min:10',
+            'nome' => 'required|max:80|min:5|unique:servicos,nome',
+            'descricao' => 'required|max:200|min:10',
             'duracao' => 'required|numeric',
-            'preco' => 'required|decimal'
+            'preco' => 'required|decimal:2'
         ];
     }
 
@@ -46,17 +46,17 @@ class ServicoFormRequest extends FormRequest
     public function messages()
     {
         return [
-            'nome.required' => 'O campo nome é obrigatório',
-            'nome.max' => 'O campo nome deve conter no máximo 80 caracteres',
+            'nome.required' => 'O campo nome es obrigatorio',
+            'nome.max' => 'O campo nome deve conter no maximo 80 caracteres',
             'nome.min' => 'O campo nome dever conter no minimo 5 caracteres',
-            'descricao.required' => 'O campo descrição é obrigatório',
-            'descricao.max' => 'A descrição deve conter no maximo 200 caracteres',
-            'descricao.min' => 'A descrição deve conter no minimo 10 caracteres',
-            'duracao.required' => 'A duração é obrigatória',
-            'duracao.numeric' => 'Apenas números',
-            'preco.required' => 'O campo preço é obrigatório',
-            'preco.decimal' => 'formato de email inválido',
-            'email.unique' => 'Formato inválido',
+            'descricao.required' => 'O campo descricao e obrigatorio',
+            'descricao.max' => 'A descricao deve conter no maximo 200 caracteres',
+            'descricao.min' => 'A descricao deve conter no minimo 10 caracteres',
+            'duracao.required' => 'A duracao e obrigatoria',
+            'duracao.numeric' => 'Apenas numeros',
+            'preco.required' => 'O campo preco e obrigatorio',
+            'preco.decimal' => 'formato de email invalido',
+            'email.unique' => 'Formato invalido',
         ];
     }
 }

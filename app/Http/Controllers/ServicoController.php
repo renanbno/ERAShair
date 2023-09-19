@@ -51,39 +51,40 @@ public function pesquisarPordescriao(Request $request){
     
     return response()->json([
         'status'=>false,
-         'data'=> 'Não há resultados para a pesquisa.'
+         'message'=> 'servico nao encontrado'
     ]);
 
 }
-
+ 
 public function update(Request $request){
-    $usuario = servico::find($request->id);
+    $servico = servico::find($request->id);
 
-    if(!isset($usuario)){
+    if(!isset($servico)){
         return response()->json([
-            'status' => false,
-            'message'=> 'cadastro não encontrado'
+            'status' => 'servico nao encontrado'
+           
         ]);
     }
 
-    if(!isset($request->nome)){
-        $usuario->nome = $request->nome;
+    if(isset($request->nome)){
+        $servico->nome = $request->nome;
     }
-    if(!isset($request->descricao)){
-        $usuario->descricao = $request->descricao;
+    if(isset($request->descricao)){
+        $servico->descricao = $request->descricao;
     }
-    if(!isset($request->duracao)){
-        $usuario->duracao = $request->duracao;
+    if(isset($request->duracao)){
+        $servico->duracao = $request->duracao;
     }
-    if(!isset($request->preco)){
-        $usuario->preco = $request->preco;
-    }
-$usuario->update();
+    if(isset($request->preco)){
+        $servico->preco = $request->preco;
+    
+$servico->update();
 
 return response()->json([
     'status' => true,
-    'message'=> 'cadastro atualizado.'
+    'message'=> 'servico atualizando.'
 ]);
+}
 }
 
 public function excluir($id){
@@ -92,7 +93,7 @@ public function excluir($id){
     if(!isset($servico)){
         return response()->json([
             'status' => false,
-            'message' => "serviço não encotrado"
+            'message' => "servico nao encotrado"
         ]);
     }
 
@@ -100,7 +101,7 @@ public function excluir($id){
 
     return response()->json([
         'status' => true,
-        'message' => "usuario excluido com sucesso"
+        'message' => "servico excluido com sucesso"
     ]);
     
 }
