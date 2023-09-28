@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\ProfissionalController;
 use App\Http\Controllers\ServicoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -31,3 +32,12 @@ Route::post('procurarE',[ClienteController::class, 'pesquisarPorEmail']);
 Route::delete('excluir/{id}',[ClienteController::class, 'excluir']);
 Route::put('atualizar', [ClienteController::class, 'update']);
 Route::post('esqueciSenha',[ClienteController::class, 'esqueciSenha']);
+
+//profissional
+Route::post('cadastroProfissional',[ProfissionalController::class,'store']);
+Route::post('procurarProfissional',[ProfissionalController::class, 'pesquisarPorNome']);
+Route::post('procurarProfissional',[ProfissionalController::class, 'pesquisarPorCpf']);
+Route::post('procurarProfissional',[ProfissionalController::class, 'pesquisarPorCelular']);
+Route::post('procurarProfissional',[ProfissionalController::class, 'pesquisarPorEmail']);
+Route::delete('excluir/{id}Profissional',[ProfissionalController::class, 'excluir']);
+Route::put('atualizarProfissional', [ProfissionalController::class, 'update']);
