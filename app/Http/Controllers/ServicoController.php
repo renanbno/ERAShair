@@ -23,6 +23,16 @@ class ServicoController extends Controller
         ],200);
     }
 
+    public function retornarTodos()
+    {
+        $servico = servico:: all();
+
+        return response()->json([
+            'status'=>true,
+            'data'=>$servico
+        ]);
+    }
+
     public function pesquisarPorNome(Request $request){
         $servicos = Servico::where('nome', 'like', '%'. $request->nome . '%')->get();
     

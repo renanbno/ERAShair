@@ -35,6 +35,16 @@ class ClienteController extends Controller
         ],200);
     }
 
+    public function retornarTodos()
+    {
+        $cliente = clientes:: all();
+
+        return response()->json([
+            'status'=>true,
+            'data'=>$cliente
+        ]);
+    }
+
     public function pesquisarPorNome(Request $request){
         $clientes = clientes::where('nome', 'like', '%'. $request->nome . '%')->get();
     
