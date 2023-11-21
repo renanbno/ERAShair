@@ -6,11 +6,12 @@ use App\Http\Requests\ClientesFormRequest;
 use App\Models\clientes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Response;
 
 class ClienteController extends Controller
 {
     public function store(ClientesFormRequest $request){
-        $cliente = clientes::create([
+        $clientes = clientes::create([
             'nome' => $request->nome,
             'celular' => $request->celular,
             'email'=>$request->email,
@@ -29,36 +30,32 @@ class ClienteController extends Controller
         ]);
        
         return response()->json([
-            "succes" => true,
+            "success" => true,
             "message" =>"Cliente Cadastrado com sucesso",
-            "data" => $cliente
+            "data" => $clientes
         ],200);
     }
 
-
-    public function pesquisarPorId($id){
-        $cliente = clientes::find($id);
-
-        if($cliente == null){
-            return response()->json([
-                'status'=>false,
-                'message'=> "Usuario não encontrado"
-           ]);
-
-        }
-        return response()->json([
-            'status'=>true,
-            'data'=> $cliente
-        ]);
+    public function retornarTodos(){
+        $clientes = clientes::all();
+         return response()->json([
+             'status'=>true,
+              'data'=> $clientes]);
     }
 
-    public function retornarTodos()
-    {
-        $cliente = clientes:: all();
+    public function pesquisarPorId($id){
+         $clientes = clientes::find($id);
+         
+         if($clientes == null){
+            return response()->json([
+                'status'=>false,
+                'message'=> "cliente não encontrado"
+           ]);
+        }
 
-        return response()->json([
+           return response()->json([
             'status'=>true,
-            'data'=>$cliente
+            'data'=> $clientes
         ]);
     }
 
@@ -183,7 +180,7 @@ class ClienteController extends Controller
             $cliente->complemento = $request->complemento;
         }
         if(isset($request->senha)){
-            $cliente->cpf = $request->senha;
+            $cliente->senha = $request->senha;
         }
         
         $cliente-> update();
@@ -235,6 +232,34 @@ class ClienteController extends Controller
         ]);
     
         
+    }
+
+    public function exportarCsv(){
+        $clientes = clientes::all();
+       
+        $nomeArquivo = 'clientes.csv';
+    
+        $filePath = storage_path('app/public/'. $nomeArquivo);
+    
+        $handle = fopen($filePath, "w");
+        
+        fputcsv($handle, array('nome', 'E-mail', 'cpf', 'celular', ), ';');
+    
+        foreach($clientes as $u){
+            fputcsv($handle, array(
+                $u->nome,
+                $u->email,
+                $u->cpf,
+                $u->celular,
+               
+            ), ';');
+        }
+    
+        fclose($handle);
+    
+        return Response::download(public_path().'/storage/'.$nomeArquivo)
+        ->deleteFileAfterSend(true);
+    
     }
 
 }

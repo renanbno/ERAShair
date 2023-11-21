@@ -24,7 +24,7 @@ class ClientesFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nome' => 'required|max:120|min:5',
+            'nome' => 'required|max:120',
             'celular' => 'required|max:11|min:10',
             'email'=> 'required|max:120|email|unique:clientes,email',
             'cpf'=>'required|max:11|min:11|unique:clientes,cpf',
@@ -53,7 +53,6 @@ class ClientesFormRequest extends FormRequest
         return [
             'nome.required'=> 'O campo nome é obrigatorio',
             'nome.max' => 'o campo nome deve conter no maximo 120 caracteres',
-            'nome.min' => 'o campo nome dever conter no minimo 5 caracteres',
             'celular.required' =>'Celular obrigatoria',
             'celular.max' => 'Celular deve conter no maximo 11 caracteres',
             'celular.min' => 'Celular deve conter no minimo 10 caracteres',
