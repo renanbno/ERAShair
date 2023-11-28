@@ -62,7 +62,7 @@ class ServicoController extends Controller
         
         return response()->json([
             'status'=>false,
-             'data'=> 'Não há resultados para a pesquisa.'
+             'message'=> 'Não há resultados para a pesquisa.'
             ]);
     
     }
