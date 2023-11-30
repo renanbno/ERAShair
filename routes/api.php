@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\agendaController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ProfissionalController;
 use App\Http\Controllers\ServicoController;
